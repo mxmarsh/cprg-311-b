@@ -59,13 +59,14 @@ public class CounterTest {
 		try {
 			counter2.setCounter(0);
 		} catch (InvalidCounterException e) {
+			// if we hit this block, this means an exception was thrown.
+			// that is not the expected behaviour, so the test fails:
 			fail("unexpected exception was thrown");
 		}
-
-		// compare the actual value to my expected value
+		// now, compare the actual value to my expected value
 		int expected = 0;
 		int actual = counter1.getCounter();
-		assertEquals("expected value does not match", expected, actual);
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -73,9 +74,14 @@ public class CounterTest {
 		// try to set the counter to a negative value
 		try {
 			counter2.setCounter(-10);
-			fail("expected exception was not thrown");
+			// the previous line should have caused an exception.
+			// therefore, if the code continues without an exception,
+			// our expected result was not met.
+			fail("expected exception was not thrown"); // test fails
 		} catch (InvalidCounterException e) {
-			assertTrue(true);
+			// we expect a negative number throws an exception,
+			// so this is the expected behaviour
+			assertTrue(true); // test passes!
 		}
 	}
 
